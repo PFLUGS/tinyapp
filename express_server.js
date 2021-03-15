@@ -3,6 +3,11 @@ const app = express();
 const PORT = 8080; // default port 8080
 app.set("view engine", "ejs")
 
+/// gereates a random 6 ( but could be change) digit alphanumeric code ///
+function generateRandomString() {
+let length = 6
+return Math.random().toString(20).substr(2, length)  // toString allows numeric value to be represented as a character // 
+}
 
 const urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
