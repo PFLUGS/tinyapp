@@ -3,7 +3,7 @@ const app = express();
 const PORT = 8080; // default port 8080
 app.set("view engine", "ejs");
 
-/// gereates a random 6 ( but could be change) digit alphanumeric code ///
+/// generates a random digit alphanumeric code ///
 function generateRandomString() {
   let length = 6;
   return Math.random().toString(20).substr(2, length);  // toString allows numeric value to be represented as a character //
@@ -18,30 +18,40 @@ const urlDatabase = {
 const bodyParser = require("body-parser");  // will convert the request body into a string we can read//
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post("/urls/:shortURL/delete",(req, res) => {
-  delete urlDatabase[req.params.shortURL]        /// delete specific items from database based on the key selected.
-  res.redirect(`/urls/`);  
+/// delete specific items from database based on the key selected  //
+app.post("/urls/:shortURL/delete", (req, res) => {
+  delete urlDatabase[req.params.shortURL]
+  res.redirect(`/urls/`);
+});
+
+// Updates long Url based on the id attached //
+app.post('/urls/:id/Edit', (req, res) => {
+  const id = req.params.id
+  urlDatabase[id] = req.body.edit
+  res.redirect(`/urls/`);
+  // console.log(id); // checking to see that the correct id is being pulled 
 });
 
 app.post("/urls", (req, res) => {
-  // const longUrl = req.body.longURL
-  const newShortUrl = generateRandomString();   /// runs our function which will become the shortUrl
+  const newShortUrl = generateRandomString();       /// runs our function which will become the shortUrl
   urlDatabase[newShortUrl] = req.body.longURL;
-  res.redirect(`/urls/${newShortUrl}`);      
+  res.redirect(`/urls/${newShortUrl}`);
 });
 
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+  res.redirect("");
 });
 
+// uses the shortURL to redirect //
 app.get("/u/:shortURL", (req, res) => {
-  const longURL = urlDatabase[req.params.shortURL];  // uses the shortURL to redirect to the longURL 
+  const longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
 
 
 app.get("/urls/:shortURL", (req, res) => {
   const templateVars = { shortURL: req.params.shortURL, longURL: urlDatabase[req.params.shortURL] };
+  console.log(templateVars);
   res.render("urls_show", templateVars);
 });
 
