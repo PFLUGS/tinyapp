@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
 const PORT = 8080; // default port 8080
-app.set("view engine", "ejs")
+app.set("view engine", "ejs");
 
 /// gereates a random 6 ( but could be change) digit alphanumeric code ///
 function generateRandomString() {
-let length = 6
-return Math.random().toString(20).substr(2, length)  // toString allows numeric value to be represented as a character // 
+  let length = 6;
+  return Math.random().toString(20).substr(2, length);  // toString allows numeric value to be represented as a character //
 }
 
 const urlDatabase = {
@@ -15,12 +15,12 @@ const urlDatabase = {
 };
 
 const bodyParser = require("body-parser");  // will convert the request body into a string we can read//
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/urls", (req, res) => {
   // const longUrl = req.body.longURL
-  const newShortUrl = generateRandomString()   /// runs our function which will become the shortUrl
-  urlDatabase[newShortUrl] = req.body.longURL
+  const newShortUrl = generateRandomString();   /// runs our function which will become the shortUrl
+  urlDatabase[newShortUrl] = req.body.longURL;
   res.redirect(`/urls/${newShortUrl}`);         // Respond with 'Ok' (we will replace this)
 });
 
@@ -29,7 +29,7 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req, res) => {
-  const longURL = urlDatabase[req.params.shortURL]
+  const longURL = urlDatabase[req.params.shortURL];
   res.redirect(longURL);
 });
 
