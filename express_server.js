@@ -24,12 +24,20 @@ app.post("/urls/:shortURL/delete", (req, res) => {
   res.redirect(`/urls/`);
 });
 
-// Updates long Url based on the id attached //
+// get current values and send to form before change
 app.post('/urls/:id/Edit', (req, res) => {
-  const id = req.params.id
-  urlDatabase[id] = req.body.edit
-  res.redirect(`/urls/`);
+  // const id = req.params.id
+  // urlDatabase[id] = req.body.edit
+  const templateVars = { shortURL: req.params.id, longURL: urlDatabase[req.params.id]}
+  res.render('urls_show', templateVars);
   // console.log(id); // checking to see that the correct id is being pulled 
+});
+// Updates long Url based on the id attached
+app.post("/urls/:id", (req, res) => {
+  console.log("urls/id:", req.params);
+  console.log("LONGURL:", req.body.longURL);
+  urlDatabase[req.params.id] = req.body.longURL;
+  res.redirect("/urls");
 });
 
 app.post("/urls", (req, res) => {
@@ -39,7 +47,7 @@ app.post("/urls", (req, res) => {
 });
 
 app.get("/urls/new", (req, res) => {
-  res.redirect("");
+  res.render("urls_new");
 });
 
 // uses the shortURL to redirect //
