@@ -4,7 +4,7 @@ TinyApp is a full stack web application built with Node and Express that allows 
 
 ## Final Product
 
-!["screenshot of the registration page"](https://github.com/PFLUGS/tinyapp/blob/master/docs/urls-edit.png?raw=true)
+!["screenshot of the registration page"](https://github.com/PFLUGS/tinyapp/blob/master/docs/urls-register.png?raw=true)
 !["screenshot of the main page with URLS"](https://github.com/PFLUGS/tinyapp/blob/master/docs/urls-page.png?raw=true)
 !["screenshot of the edit URLs page"](https://github.com/PFLUGS/tinyapp/blob/master/docs/urls-edit.png?raw=true)
 ## Dependencies
