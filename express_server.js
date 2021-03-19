@@ -19,7 +19,7 @@ const urlDatabase = {
   i3BoGr: { longURL: "https://www.google.ca", userID: "aJ48lW" }
 };
 
-// console.log('Whats Going On iN DB---', urlDatabase)
+// console.log('Whats Going On iN DB---', urlDatabase) // this was just me checking to see if database was updating as it should
 
 const users = {
   "userRandomID": {
@@ -133,7 +133,6 @@ app.post('/urls/:id/Edit', (req, res) => {
   const user = users[req.session.user_id];
   const templateVars = { shortURL: req.params.id, longURL: urlDatabase[req.params.id], user: user};
   res.render('urls_show', templateVars);
-  // console.log(id); // checking to see that the correct id is being pulled
 });
 
 // Updates long Url based on the id attached
@@ -157,8 +156,6 @@ app.post("/urls", (req, res) => {
   urlDatabase[newShortUrl] = {
     longURL: req.body.longURL,
     userID: req.session.user_id};
-  // userID: req.cookies["user_id"]}
-  // console.log("-----", urlDatabase);
   res.redirect(`/urls/${newShortUrl}`);
 });
 
@@ -186,7 +183,6 @@ app.get("/urls/:shortURL", (req, res) => {
   const shortURL = req.params.shortURL;
   const longURL = urlDatabase[`${shortURL}`].longURL;
   const templateVars = { shortURL: req.params.shortURL, longURL, user: user,};
-  // console.log(templateVars);
   res.render("urls_show", templateVars);
 });
 
@@ -216,8 +212,3 @@ app.get("/hello", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);
 });
-
-
-
-
-/////FUNCTIONS////
